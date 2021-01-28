@@ -8,9 +8,11 @@ import { Asset } from 'expo-asset';
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { persistCache } from "apollo3-cache-persist";
 import ApolloClient from "apollo-boost";
-import AsyncStorage from "@react-native-community/async-storage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import apolloClientOptions from "./apollo";
 import { ApolloProvider } from "react-apollo-hooks";
+import { ThemeProvider } from "styled-components";
+import style from "./style";
 
 export default function App() {
 
@@ -19,6 +21,8 @@ export default function App() {
 
   /** client의 상태는 디폴트로 null */
   const [client, setClient] = useState(null);
+
+  const [isLoggedIn, setIsLoggedIn] = useState(null);
   const preLoad = async () => {
     try{
       
@@ -45,6 +49,13 @@ export default function App() {
         ...apolloClientOptions
       });
 
+      const isLoggedIn = await AsyncStorage.getItem("isLoggedIn");
+      if(isLoggedIn === null || isLoggedIn === false){
+        setIsLoggedIn(false);
+      }else{
+        setIsLoggedIn(true);
+      }
+
       /** Font, Asset이 로드가 완료될 경우 useState로 loaded의 상태를 true로 변경 */
       setLoaded(true);
 
@@ -59,11 +70,13 @@ export default function App() {
     preLoad();
   }, []);
 
-  return loaded && client ? (
+  return loaded && client && isLoggedIn !== null ? (
     <ApolloProvider client={client}>
-        <View>
-          <Text>Open up App  . start working with your app</Text>
-        </View>
+        <ThemeProvider theme={style}>
+          <View>
+            {isLoggedIn === true ? <Text>I'm in</Text> : <Text>I'm out</Text>}
+          </View>
+        </ThemeProvider>
     </ApolloProvider>
     
   ) : (
