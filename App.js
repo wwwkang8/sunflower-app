@@ -23,6 +23,8 @@ export default function App() {
 
   /** client의 상태는 디폴트로 null */
   const [client, setClient] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(null);
+
 
   const preLoad = async () => {
     try{
@@ -31,6 +33,13 @@ export default function App() {
       await Font.loadAsync({
         ...Ionicons.font
       });
+
+      const isLoggedIn = await AsyncStorage.getItem("isLoggedIn");
+      if(!isLoggedIn || isLoggedIn === true){
+          setIsLoggedIn(false);
+      } else {
+        setIsLoggedIn(true);
+      }
 
       /** Asset 클래스는 URL 또는 프로젝트 내부의 자원을 불러온다 */
       await Asset.loadAsync([require("./assets/instagram_logo.png")]);
@@ -49,7 +58,7 @@ export default function App() {
         cache,
         ...apolloClientOptions
       });
-      
+
       /** Font, Asset이 로드가 완료될 경우 useState로 loaded의 상태를 true로 변경 */
       setLoaded(true);
 
@@ -65,13 +74,12 @@ export default function App() {
   }, []);
 
 
-  return loaded && client ? (
+  return loaded && client && isLoggedIn !== null ? (
     <ApolloProvider client={client}>
         <ThemeProvider theme={style}>
-          <AuthProvider>
+          <AuthProvider isLoggedIn={isLoggedIn}>
             <NavController />
           </AuthProvider>
-          <NavController />
         </ThemeProvider>
     </ApolloProvider>
     
