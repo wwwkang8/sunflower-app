@@ -12,7 +12,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import apolloClientOptions from "./apollo";
 import { ApolloProvider } from "react-apollo-hooks";
 import { ThemeProvider } from "styled-components";
+import NavController from "./components/NavController";
 import style from "./style";
+import { AuthProvider } from './AuthContext';
 
 export default function App() {
 
@@ -22,7 +24,6 @@ export default function App() {
   /** client의 상태는 디폴트로 null */
   const [client, setClient] = useState(null);
 
-  const [isLoggedIn, setIsLoggedIn] = useState(null);
   const preLoad = async () => {
     try{
       
@@ -48,14 +49,7 @@ export default function App() {
         cache,
         ...apolloClientOptions
       });
-
-      const isLoggedIn = await AsyncStorage.getItem("isLoggedIn");
-      if(isLoggedIn === null || isLoggedIn === "false"){
-        setIsLoggedIn(false);
-      }else{
-        setIsLoggedIn(true);
-      }
-
+      
       /** Font, Asset이 로드가 완료될 경우 useState로 loaded의 상태를 true로 변경 */
       setLoaded(true);
 
@@ -70,40 +64,14 @@ export default function App() {
     preLoad();
   }, []);
 
-  const logUserIn = async() => {
-    try{
-      await AsyncStorage.setItem("isLoggedIn", "true");
-      setIsLoggedIn(true);
-    }catch(e){
-      console.log(e);
-    }
-  };
 
-  const logUserOut = async() => {
-    try{
-      await AsyncStorage.setItem("isLoggedIn", "false");
-      setIsLoggedIn(false);
-    }catch(e){
-      console.log(e);
-    }
-  };
-
-  return loaded && client && isLoggedIn !== null ? (
+  return loaded && client ? (
     <ApolloProvider client={client}>
         <ThemeProvider theme={style}>
-          <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-            {isLoggedIn === true ? (
-              <TouchableOpacity onPress={logUserOut}>
-                <Text>Log Out</Text>
-              </TouchableOpacity> 
-            )
-            : (
-                <TouchableOpacity onPress={logUserIn}>
-                  <Text>Log In</Text>
-                </TouchableOpacity>
-              )
-            }
-          </View>
+          <AuthProvider>
+            <NavController />
+          </AuthProvider>
+          <NavController />
         </ThemeProvider>
     </ApolloProvider>
     
