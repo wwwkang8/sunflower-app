@@ -4,10 +4,11 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const AuthContext = createContext();
 
-export const AuthProvider = ( {children} ) => {
+export const AuthProvider = ({isLoggedIn: isLoggedInProp, children}) => {
 
-    const [isLoggedIn, setIsLoggedIn] = useState(null);
+    const [isLoggedIn, setIsLoggedIn] = useState(isLoggedInProp);
 
+    /** logUserIn 함수 호출 : AsyncStorage에 로그인 여부 true 세팅, hook으로 로그인 여부 true 세팅 */
     const logUserIn = () => {
         try{
           AsyncStorage.setItem("isLoggedIn", "true");
@@ -17,6 +18,7 @@ export const AuthProvider = ( {children} ) => {
         }
       };
       
+    /** logUserOut 함수 호출 : AsyncStorage에 로그인 여부 false 세팅, hook으로 로그인 여부 false 세팅 */
     const logUserOut = () => {
       try{
         AsyncStorage.setItem("isLoggedIn", "false");
@@ -34,17 +36,17 @@ export const AuthProvider = ( {children} ) => {
 };
 
 export const useIsLoggedIn = () => {
-  const isLoggedIn = useContext(AuthContext);
+  const {isLoggedIn} = useContext(AuthContext);
   console.log(isLoggedIn);
   return isLoggedIn;
 };
 
 export const useLogIn = () => {
   const {logUserIn} = useContext(AuthContext);
-  return;
+  return logUserIn;
 };
 
 export const useLogOut = () => {
   const {logUserOut} = useContext(AuthContext);
-  return;
+  return logUserOut;
 };
