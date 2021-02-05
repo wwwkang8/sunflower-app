@@ -10,3 +10,5 @@ Screens:
 - [ ] Photo Detail
 - [ ] Photo Comments(Challenge)
 - [ ] Photo Likes(Challenge)
+
+리액트 네이티브로 앱 개발
