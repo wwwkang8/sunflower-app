@@ -12,25 +12,23 @@ const Tab = createBottomTabNavigator();
 
 export default () => {
     return (
-        <NavigationContainer>
-        <Tab.Navigator>
-            <Tab.Screen name="Home" component={Home} />
-            <Tab.Screen name="Profile" component={Profile} />
-            <Tab.Screen 
-                    name="Add" 
-                    component={View} 
-                    listeners={{
-                        tabPress: e => {
-                          // Prevent default action
-                          e.preventDefault();
-                          console.log("Add");
-                        },
-                      }}
-            />
-            <Tab.Screen name="Search" component={Search} />
-            <Tab.Screen name="Notifications" component={Notifications} />
-        </Tab.Navigator>
-    </NavigationContainer>
+            <Tab.Navigator>
+                <Tab.Screen name="Home" component={Home} />
+                <Tab.Screen name="Profile" component={Profile} />
+                <Tab.Screen 
+                        name="View" 
+                        component={View} 
+                        listeners={({ navigation, route }) => ({
+                            tabPress: e => {
+                                e.preventDefault();
+
+                                navigation.navigate("PhotoNavigation");
+                            }
+                        })}
+                />
+                <Tab.Screen name="Search" component={Search} />
+                <Tab.Screen name="Notifications" component={Notifications} />
+            </Tab.Navigator>
     );
 };
 
