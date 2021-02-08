@@ -1,5 +1,5 @@
 import * as React from "react";
-import { createStackNavigator } from "react-navigation-stack";
+import { createStackNavigator } from "@react-navigation/stack";
 import { TouchableOpacity } from "react-native";
 import styled from "styled-components";
 import UploadPhoto from "./UploadPhoto";
@@ -15,7 +15,7 @@ const Text = styled.Text``;
 const TakePhoto = ({ navigation }) => (
   <View>
     <TouchableOpacity onPress={() => navigation.navigate("UploadPhoto")}>
-      <Text>Take</Text>
+      <Text>Take Photo</Text>
     </TouchableOpacity>
   </View>
 );
