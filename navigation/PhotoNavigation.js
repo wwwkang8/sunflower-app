@@ -9,10 +9,9 @@ const PhotoTab = createMaterialTopTabNavigator();
 
 export default () => {
     return(
-        <PhotoTab.Navigator>
+        <PhotoTab.Navigator tabBarPosition={"bottom"}>
             <PhotoTab.Screen name="SelectPhoto" component={SelectPhoto} />
             <PhotoTab.Screen name="TakePhoto" component={TakePhoto} />
-            <PhotoTab.Screen name="UploadPhoto" component={UploadPhoto} />
         </PhotoTab.Navigator>
     );
 };

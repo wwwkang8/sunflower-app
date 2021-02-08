@@ -7,8 +7,11 @@ import Home from "../screens/Home";
 import Notifications from "../screens/Notifications";
 import Profile from "../screens/Profile";
 import Search from "../screens/Search";
+import { createStackNavigator } from "@react-navigation/stack";
 
 const Tab = createBottomTabNavigator();
+
+const stackFactory = (initialRoute) => createStackNavigator({initialRoute});
 
 export default () => {
     return (
