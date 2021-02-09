@@ -12,3 +12,7 @@ Screens:
 - [ ] Photo Likes(Challenge)
 
 리액트 네이티브로 앱 개발
+
+기술 스택
+- React Native
+- Expo
