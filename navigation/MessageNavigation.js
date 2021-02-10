@@ -5,6 +5,12 @@ import Messages from "../screens/Messages/Messages";
 
 const MessageTab = createStackNavigator();
 
-export default createStackNavigator({
+export default () => {
+    return (
+        <MessageTab.Navigator>
+            <MessageTab.Screen name="Message" component={Message} />
+            <MessageTab.Screen name="Messages" component={Messages} />
+        </MessageTab.Navigator>
+    );
+};
 
-});
