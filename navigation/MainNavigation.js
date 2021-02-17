@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from '@react-navigation/native';
 import TabNavigation from "./TabNavigation";
 import PhotoNavigation from "./PhotoNavigation";
+import MessageNavigation from "./MessageNavigation";
 
 const MainTab = createStackNavigator();
 
@@ -14,6 +15,7 @@ export default () => {
             <MainTab.Navigator>
                 <MainTab.Screen name="TabNavigation" component={TabNavigation} />
                 <MainTab.Screen name="PhotoNavigation" component={PhotoNavigation} />
+                <MainTab.Screen name="MessageNavigation" component={MessageNavigation} />
             </MainTab.Navigator>
         </NavigationContainer>
     );
