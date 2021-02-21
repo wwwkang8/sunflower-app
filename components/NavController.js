@@ -7,7 +7,9 @@ import TabNavigation from "../navigation/TabNavigation";
 
 
 export default () => {
-    const isLoggedIn = useIsLoggedIn();
+    /** 초기 페이지를 로그인으로 보여주기 위해서 isLoggedIn=false로 세팅 */
+    //const isLoggedIn = useIsLoggedIn();
+    const isLoggedIn = false;
 
     return (
         <View style={{ flex: "1"}}>

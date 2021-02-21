@@ -40,8 +40,7 @@ export default () => {
                 <Tab.Screen name="Home">
                     {() =>
                         stackFactory(Home, "Home", {
-                            title: "Home",
-                            headerRight: MessagesLink
+                            title: "Home"
                         })
                     }
                 </Tab.Screen>
