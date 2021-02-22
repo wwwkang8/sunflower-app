@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import constants from "../../constants";
+import AuthButton from "../../components/AuthButton";
 
 /** View 컴포넌트의 스타일 지정 */
 const View = styled.View`
@@ -41,12 +42,11 @@ const LoginLinkText = styled.Text`
 
 export default ({navigation}) => (
     <View>
-        <Image resizeMode={"contain"} source={require("../../assets/instagram_logo.png")} />
-        <Touchable onPress={()=>navigation.navigate("Signup")}>
-            <SignUpBtn>
-                <SignUpBtnText>Create New Account</SignUpBtnText>
-            </SignUpBtn>
-        </Touchable>
+        <Image resizeMode={"contain"} source={require("../../assets/sunflower_logo.png")} />
+        <AuthButton 
+            text={"Create New Account"}
+            onPress={() => navigation.navigate("Signup")}
+        />
         <Touchable onPress={()=>navigation.navigate("Login")}>
             <LoginLink>
                 <LoginLinkText>Log in</LoginLinkText>
