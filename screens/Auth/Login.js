@@ -17,7 +17,7 @@ const Text = styled.Text`
 
 export default () => (
     <View>
-        <AuthInput value="" placeholder="Email" keyboardType="email-address" />
+        <AuthInput placeholder="Email" keyboardType="email-address" />
         <AuthButton onPress={()=> null} text="Log In" />
     </View>
 );
