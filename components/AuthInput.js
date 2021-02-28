@@ -10,11 +10,16 @@ const TextInput = styled.TextInput`
     
 `;
 
-const AuthInput = ({ placeholder, value, keyboardType="default" }) => (
+const AuthInput = ({ placeholder
+                    , value
+                    , keyboardType="default"
+                    , autoCapitalize="none" }) => (
     <Container>
         <TextInput keyboardType={keyboardType} 
-                   placeholder={placeholder} 
-                   value={value} />
+                   placeholder={placeholder}
+                   autoCapitalize={autoCapitalize}
+                   value={value}
+                   />
     </Container>
 );
 
@@ -28,7 +33,8 @@ AuthInput.propTypes = {
         "numeric",
         "email-address",
         "phone-pad"
-    ])
+    ]),
+    autoCapitalize: PropTypes.oneOf(["none", "sentences", "words", "characters"])
 };
 
 export default AuthInput;

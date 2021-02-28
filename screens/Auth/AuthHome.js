@@ -38,11 +38,13 @@ const LoginLink = styled.View`
 
 const LoginLinkText = styled.Text`
     color: ${props => props.theme.blueColor}
+    margin-top: 20px;
+    font-weight: 600;
 `;
 
 export default ({navigation}) => (
     <View>
-        <Image resizeMode={"contain"} source={require("../../assets/sunflower_logo.png")} />
+        <Image resizeMode={"contain"} source={require("../../assets/instagram_logo.png")} />
         <AuthButton 
             text={"Create New Account"}
             onPress={() => navigation.navigate("Signup")}
