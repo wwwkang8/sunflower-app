@@ -16,5 +16,6 @@ Screens:
 기술 스택
 - React Native
 - Expo
+- GraphQL
 
 추후 소개팅 앱 개발로 변경 
