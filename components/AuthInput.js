@@ -19,7 +19,10 @@ const AuthInput = ({ placeholder
                     , value
                     , keyboardType="default"
                     , autoCapitalize="none"
-                    , onChange }) => {
+                    , onChange
+                    , returnKeyType="done"
+                    , onEndEditing = () => null
+                    , autoCorrect = "true"}) => {
 
 
     return(
@@ -30,6 +33,9 @@ const AuthInput = ({ placeholder
                     autoCapitalize={autoCapitalize}
                     value={value}
                     onChangeText={onChange}
+                    returnKeyType={returnKeyType}
+                    onEndEditing={onEndEditing}
+                    autoCorrect={autoCorrect}
                     />
         </Container>
     );
@@ -47,7 +53,16 @@ AuthInput.propTypes = {
         "phone-pad"
     ]),
     autoCapitalize: PropTypes.oneOf(["none", "sentences", "words", "characters"]),
-    onChange: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired,
+    returnType: PropTypes.oneOf([
+        "done",
+        "go",
+        "next",
+        "search",
+        "send"
+    ]),
+    onEndEditing: PropTypes.func,
+    autoCorrect : PropTypes.bool
 };
 
 export default AuthInput;
