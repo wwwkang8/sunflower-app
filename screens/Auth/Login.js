@@ -21,7 +21,7 @@ const Text = styled.Text`
 
 `;
 
-export default () => {
+export default ({navigation}) => {
     const emailInput = useInput("");
     const [loading, setLoading] = useState(false);
     const [requestSecretMutation] = useMutation(LOG_IN, {
@@ -31,7 +31,7 @@ export default () => {
     });
 
 
-    const handleLogin = async ({navigation}) => {
+    const handleLogin = async () => {
         const { value } = emailInput;
         const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
