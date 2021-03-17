@@ -51,11 +51,11 @@ export default ({navigation}) => {
 
             if(requestSecret){
                 Alert.alert("Check your email box");
-                navigation.navigate("Confirm");
+                navigation.navigate("Confirm", { email: value });
                 return;
             }else{
                 Alert.alert("Account not found");
-                navigation.navigate("Signup");
+                navigation.navigate("Signup", { email: value });
             }
 
             
