@@ -26,21 +26,18 @@ export default ({route, navigation}) => {
     const confirmInput = useInput("");
     const [loading, setLoading] = useState(false);
 
+    const logIn = useLogIn();
+
     /** confirmSecret 호출 : secret, email을 파라메터로 전송 
      * secret : 사용자가 입력한 secret 값을 사용
      * email : Login.js 화면에서 넘겨준 email을 route 컴포넌트에서 받아온다.
     */
     const [confirmSecretMutation] = useMutation(CONFIRM_SECRET, {
         variables: {
-            sercret: confirmInput.value,
+            secret: confirmInput.value,
             email: route.params.email
         }
     });
-
-    // console.log(typeof confirmInput.value);
-    // console.log(typeof route.params.email);
-    // console.log(confirmInput.value);
-    // console.log(route.params.email);
 
 
     /** Confirm 버튼 클릭시 호출
@@ -55,14 +52,13 @@ export default ({route, navigation}) => {
 
         try{
             setLoading(true);
-            console.log("check type under");
-            console.log(typeof value);
             const  {
                 data: {confirmSecret}
             } = await confirmSecretMutation();
 
             if(confirmSecret !== "" || confirmSecret !== false ){
-                useLogIn(confirmSecret);
+                logIn(confirmSecret);
+
             }else{
                 Alert.alert("Wrong Secret!");
             }

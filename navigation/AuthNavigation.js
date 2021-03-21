@@ -12,10 +12,10 @@ const AuthNavigation = () => {
    return (
         <NavigationContainer>
                 <AuthTab.Navigator>
-                <AuthTab.Screen name="AuthHome" component={AuthHome} />
-                <AuthTab.Screen name="Signup" component={Signup} />
-                <AuthTab.Screen name="Login" component={Login} />
-                <AuthTab.Screen name="Confirm" component={Confirm} /> 
+                        <AuthTab.Screen name="AuthHome" component={AuthHome} />
+                        <AuthTab.Screen name="Signup" component={Signup} />
+                        <AuthTab.Screen name="Login" component={Login} />
+                        <AuthTab.Screen name="Confirm" component={Confirm} />
                 </AuthTab.Navigator>
         </NavigationContainer>
    )
