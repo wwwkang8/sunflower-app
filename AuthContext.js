@@ -9,10 +9,11 @@ export const AuthProvider = ({isLoggedIn: isLoggedInProp, children}) => {
     const [isLoggedIn, setIsLoggedIn] = useState(isLoggedInProp);
 
     /** logUserIn 함수 호출 : AsyncStorage에 로그인 여부 true 세팅, hook으로 로그인 여부 true 세팅 */
-    const logUserIn = () => {
+    const logUserIn = async (token) => {
+      console.log("Token : "+token);
         try{
-          AsyncStorage.setItem("isLoggedIn", "true");
-          AsyncStorage.setItem("jwt", token);
+          await AsyncStorage.setItem("isLoggedIn", "true");
+          await AsyncStorage.setItem("jwt", token);
           setIsLoggedIn(true);
         }catch(e){
           console.log(e);
@@ -20,9 +21,9 @@ export const AuthProvider = ({isLoggedIn: isLoggedInProp, children}) => {
       };
       
     /** logUserOut 함수 호출 : AsyncStorage에 로그인 여부 false 세팅, hook으로 로그인 여부 false 세팅 */
-    const logUserOut = () => {
+    const logUserOut = async () => {
       try{
-        AsyncStorage.setItem("isLoggedIn", "false");
+        await AsyncStorage.setItem("isLoggedIn", "false");
         setIsLoggedIn(false);
       }catch(e){
         console.log(e);
@@ -39,7 +40,6 @@ export const AuthProvider = ({isLoggedIn: isLoggedInProp, children}) => {
 
 export const useIsLoggedIn = () => {
   const {isLoggedIn} = useContext(AuthContext);
-  console.log(isLoggedIn);
   return isLoggedIn;
 };
 
