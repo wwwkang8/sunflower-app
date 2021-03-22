@@ -8,6 +8,7 @@ import TabNavigation from "../navigation/TabNavigation";
 
 export default () => {
     const isLoggedIn = useIsLoggedIn();
+    //const isLoggedIn = false;
 
     return (
         <View style={{ flex: "1"}}>
