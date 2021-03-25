@@ -27,6 +27,7 @@ export default function App() {
 
 
   const preLoad = async () => {
+    //await AsyncStorage.clear();
     try{
       
       /** Font 클래스를 통해 Ionicon 들을 불러온다. */

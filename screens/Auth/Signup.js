@@ -21,6 +21,12 @@ const Text = styled.Text`
 
 `;
 
+const FBContainer = styled.View`
+
+`;
+
+
+
 export default ({route, navigation}) => {
     const firstNameInput = useInput("");
     const lastNameInput = useInput("");
@@ -83,29 +89,34 @@ export default ({route, navigation}) => {
     }
 
     return(
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View>
-                <AuthInput 
-                    {...firstNameInput} 
-                    placeholder="First name" 
-                    autoCapitalize="words" />
-                 <AuthInput 
-                    {...lastNameInput} 
-                    placeholder="Last name" 
-                    autoCapitalize="words" />
-                <AuthInput 
-                    {...emailInput} 
-                    placeholder="Email" 
-                    keyboardType="email-address"
-                    returnKeyType="send"
-                    autoCorrect={false} />
-                <AuthInput 
-                    {...userNameInput} 
-                    placeholder="Username" 
-                    autoCorrect={false} />
-                <AuthButton onPress={handleSignup} text="Sign up" loading={loading} />
-            </View>
-        </TouchableWithoutFeedback>
+        <>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <View>
+                    <AuthInput 
+                        {...firstNameInput} 
+                        placeholder="First name" 
+                        autoCapitalize="words" />
+                    <AuthInput 
+                        {...lastNameInput} 
+                        placeholder="Last name" 
+                        autoCapitalize="words" />
+                    <AuthInput 
+                        {...emailInput} 
+                        placeholder="Email" 
+                        keyboardType="email-address"
+                        returnKeyType="send"
+                        autoCorrect={false} />
+                    <AuthInput 
+                        {...userNameInput} 
+                        placeholder="Username" 
+                        autoCorrect={false} />
+                    <AuthButton onPress={handleSignup} text="Sign up" loading={loading} />
+                </View>
+            </TouchableWithoutFeedback>
+            <FBContainer>
+                <AuthButton loading={false} onPress={()=> null} text="Connect Facebook" />
+            </FBContainer>
+        </>
     )
     
 };
