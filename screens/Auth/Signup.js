@@ -9,6 +9,7 @@ import useInput from "../../hooks/useInput";
 import { Alert } from "react-native";
 import { CREATE_ACCOUNT, LOG_IN } from "./AuthQueries";
 import { useMutation } from "react-apollo-hooks";
+import * as Facebook from 'expo-facebook';
 
 /** View 컴포넌트의 스타일 지정 */
 const View = styled.View`
@@ -22,7 +23,10 @@ const Text = styled.Text`
 `;
 
 const FBContainer = styled.View`
-
+    padding-top: 25px;
+    border-top-width: 1px;
+    border-color: ${props => props.theme.lightGreyColor};
+    border-style: solid;
 `;
 
 
@@ -41,6 +45,32 @@ export default ({route, navigation}) => {
             lastName: lastNameInput.value
         }
     });
+
+    const FBLogin = async() => {
+        try {
+            await Facebook.initializeAsync({
+              appId: '<APP_ID>',
+            });
+            const {
+              type,
+              token,
+              expirationDate,
+              permissions,
+              declinedPermissions,
+            } = await Facebook.logInWithReadPermissionsAsync({
+              permissions: ['public_profile'],
+            });
+            if (type === 'success') {
+              // Get the user's name using Facebook's Graph API
+              const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
+              Alert.alert('Logged in!', `Hi ${(await response.json()).name}!`);
+            } else {
+              // type === 'cancel'
+            }
+          } catch ({ message }) {
+            alert(`Facebook Login Error: ${message}`);
+          }
+    }
 
 
     const handleSignup = async () => {
@@ -111,11 +141,12 @@ export default ({route, navigation}) => {
                         placeholder="Username" 
                         autoCorrect={false} />
                     <AuthButton onPress={handleSignup} text="Sign up" loading={loading} />
+                    <FBContainer>
+                        <AuthButton loading={false} onPress={()=> null} text="Connect Facebook" />
+                    </FBContainer>
                 </View>
             </TouchableWithoutFeedback>
-            <FBContainer>
-                <AuthButton loading={false} onPress={()=> null} text="Connect Facebook" />
-            </FBContainer>
+            
         </>
     )
     
