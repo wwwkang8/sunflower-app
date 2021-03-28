@@ -22,7 +22,7 @@ const Text = styled.Text`
 `;
 
 export default ({route, navigation}) => {
-    const emailInput = useInput(route.params.email);
+    const emailInput = useInput("");
     const [loading, setLoading] = useState(false);
     const [requestSecretMutation] = useMutation(LOG_IN, {
         variables: {

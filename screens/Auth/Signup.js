@@ -10,6 +10,7 @@ import { Alert } from "react-native";
 import { CREATE_ACCOUNT, LOG_IN } from "./AuthQueries";
 import { useMutation } from "react-apollo-hooks";
 import * as Facebook from 'expo-facebook';
+import {FACEBOOK_APP_ID} from "../../secret";
 
 /** View 컴포넌트의 스타일 지정 */
 const View = styled.View`
@@ -49,7 +50,7 @@ export default ({route, navigation}) => {
     const FBLogin = async() => {
         try {
             await Facebook.initializeAsync({
-              appId: '<APP_ID>',
+              appId: FACEBOOK_APP_ID,
             });
             const {
               type,
@@ -142,7 +143,10 @@ export default ({route, navigation}) => {
                         autoCorrect={false} />
                     <AuthButton onPress={handleSignup} text="Sign up" loading={loading} />
                     <FBContainer>
-                        <AuthButton loading={false} onPress={()=> null} text="Connect Facebook" />
+                        <AuthButton 
+                            loading={false} 
+                            onPress={FBLogin} 
+                            text="Connect Facebook" />
                     </FBContainer>
                 </View>
             </TouchableWithoutFeedback>
