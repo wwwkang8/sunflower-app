@@ -20,9 +20,9 @@ const Text = styled.Text`
     font-weight: 600;
 `;
 
-const AuthButton = ({text, onPress, loading=false}) => (
+const AuthButton = ({text, onPress, loading=false}, bgColor = null) => (
     <Touchable disabled={loading} onPress={onPress}>
-        <Container>
+        <Container bgColor={bgColor}>
             {loading ? <ActivityIndicator color={"white"} /> : <Text>{text}</Text>}
         </Container>
     </Touchable>

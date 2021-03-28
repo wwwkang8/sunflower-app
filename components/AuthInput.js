@@ -22,7 +22,7 @@ const AuthInput = ({ placeholder
                     , onChange
                     , returnKeyType="done"
                     , onSubmitEditing = () => null
-                    , autoCorrect = "true"}) => {
+                    , autoCorrect = true}) => {
 
 
     return(
