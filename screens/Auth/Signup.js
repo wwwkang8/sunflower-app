@@ -52,6 +52,9 @@ export default ({route, navigation}) => {
             await Facebook.initializeAsync({
               appId: FACEBOOK_APP_ID,
             });
+            setLoading(true);
+
+            /** facebook api 호출하여 이메일, 비밀번호 입력 후 타입, 토큰을 반환 받는다. */
             const {
               type,
               token,
@@ -59,12 +62,27 @@ export default ({route, navigation}) => {
               permissions,
               declinedPermissions,
             } = await Facebook.logInWithReadPermissionsAsync({
-              permissions: ['public_profile'],
+              permissions: ['public_profile', 'email'],
             });
             if (type === 'success') {
-              // Get the user's name using Facebook's Graph API
-              const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
-              Alert.alert('Logged in!', `Hi ${(await response.json()).name}!`);
+                
+              /**  반환받은 토큰을 이용하여 로그인 유저의 정보를 조회 */
+              const response = await fetch(`https://graph.facebook.com/me?access_token=${token}&fields=id,last_name,first_name,email`);
+              const data = await response.json();
+
+              Alert.alert('Logged in!', `Hi ${data.first_name}!`);
+
+              /** facebook api로 부터 받은 로그인 정보 */
+              const { email, first_name, last_name } = data;
+              console.log(response.json);
+              emailInput.setValue(email);
+              firstNameInput.setValue(first_name);
+              lastNameInput.setValue(last_name);
+              const [userName] = email.split("@");
+              userNameInput.setValue(userName);
+
+              setLoading(false);
+
             } else {
               // type === 'cancel'
             }
