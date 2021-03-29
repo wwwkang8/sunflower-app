@@ -10,7 +10,8 @@ import { Alert } from "react-native";
 import { CREATE_ACCOUNT, LOG_IN } from "./AuthQueries";
 import { useMutation } from "react-apollo-hooks";
 import * as Facebook from 'expo-facebook';
-import {FACEBOOK_APP_ID} from "../../secret";
+import * as Google from 'expo-google-app-auth';
+import {FACEBOOK_APP_ID, GOOGLE_APP_IOS_CLIENTID, GOOGLE_APP_ANDROID_CLIENTID} from "../../secret";
 
 /** View 컴포넌트의 스타일 지정 */
 const View = styled.View`
@@ -74,12 +75,8 @@ export default ({route, navigation}) => {
 
               /** facebook api로 부터 받은 로그인 정보 */
               const { email, first_name, last_name } = data;
-              console.log(response.json);
-              emailInput.setValue(email);
-              firstNameInput.setValue(first_name);
-              lastNameInput.setValue(last_name);
-              const [userName] = email.split("@");
-              userNameInput.setValue(userName);
+              
+              updateFormData(email, first_name, last_name);
 
               setLoading(false);
 
@@ -89,6 +86,41 @@ export default ({route, navigation}) => {
           } catch ({ message }) {
             alert(`Facebook Login Error: ${message}`);
           }
+    };
+
+    const GoogleLogin = async () => {
+        try {
+            setLoading(true);
+            const result = await Google.logInAsync({
+              iosClientId: GOOGLE_APP_IOS_CLIENTID,
+              androidClientId: GOOGLE_APP_ANDROID_CLIENTID,
+              scopes: ['profile', 'email']
+            });
+        
+            if (result.type === 'success') {
+                const user = await fetch('https://www.googleapis.com/userinfo/v2/me', {
+                                        headers: { Authorization: `Bearer ${result.accessToken}` },
+                                    });
+              const {email, family_name, given_name, id, name} = await user.json();
+
+              updateFormData(email, given_name, family_name);
+              
+            } else {
+              return { cancelled: true };
+            }
+          } catch (e) {
+            return { error: true };
+          }finally{
+              setLoading(false);
+          }
+    };
+
+    const updateFormData = (email, first_name, last_name) => {
+        emailInput.setValue(email);
+        firstNameInput.setValue(first_name);
+        lastNameInput.setValue(last_name);
+        const [userName] = email.split("@");
+        userNameInput.setValue(userName);
     }
 
 
@@ -165,7 +197,12 @@ export default ({route, navigation}) => {
                             loading={false} 
                             onPress={FBLogin} 
                             text="Connect Facebook" />
+                        <AuthButton 
+                            loading={false} 
+                            onPress={GoogleLogin} 
+                            text="Connect Google" />
                     </FBContainer>
+                        
                 </View>
             </TouchableWithoutFeedback>
             
