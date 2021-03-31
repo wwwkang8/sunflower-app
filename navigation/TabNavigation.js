@@ -8,6 +8,7 @@ import Notifications from "../screens/Tabs/Notifications";
 import Profile from "../screens/Tabs/Profile";
 import Search from "../screens/Tabs/Search";
 import { createStackNavigator } from "@react-navigation/stack";
+import { Image } from "react-native"
 import { TouchableOpacity } from "react-native-gesture-handler";
 import MessagesLink from "../components/MessagesLink";
 
@@ -37,14 +38,26 @@ const stackFactory = (initialRoute, name, customConfig) => (
 export default () => {
     return (
             <Tab.Navigator>
-                <Tab.Screen name="Home">
+                <Tab.Screen name="Home" options={{tabBarIcon: ({foucused}) => {
+                    return (
+                        <Image source={require("../assets/home.png")}
+                                style={{width: 20, height: 20}} />
+                    )
+                }}}>
                     {() =>
                         stackFactory(Home, "Home", {
                             title: "Home"
+                            //header: <MessagesLink />,
+                            //headerTitle: <Image source={require("../assets/instagram_logo.png")} />
                         })
                     }
                 </Tab.Screen>
-                <Tab.Screen name="Profile">
+                <Tab.Screen name="Profile" options={{tabBarIcon: ({foucused}) => {
+                    return (
+                        <Image source={require("../assets/profile.png")}
+                                style={{width: 20, height: 20}} />
+                    )
+                }}}>
                     {() => 
                         stackFactory(Profile, "Profile", {
                             title: "Profile"
@@ -62,8 +75,20 @@ export default () => {
                                 navigation.navigate("PhotoNavigation");
                             }
                         })}
+                        options={{tabBarIcon: ({foucused}) => {
+                            return (
+                                <Image source={require("../assets/plus.png")}
+                                        style={{width: 20, height: 20}} />
+                            )
+                        }}}
                 />
-                <Tab.Screen name="Search">
+                <Tab.Screen name="Search" 
+                            options={{tabBarIcon: ({foucused}) => {
+                                return (
+                                    <Image source={require("../assets/search.png")}
+                                            style={{width: 20, height: 20}} />
+                                )
+                            }}}>
                     {() =>
                         stackFactory(Search, "Search", {
                             title: "Search"
@@ -71,7 +96,13 @@ export default () => {
 
                     }
                 </Tab.Screen>
-                <Tab.Screen name="Notifications">
+                <Tab.Screen name="Notifications"
+                            options={{tabBarIcon: ({foucused}) => {
+                                return (
+                                    <Image source={require("../assets/notification.png")}
+                                            style={{width: 20, height: 20}} />
+                                )
+                            }}}>
                     {() =>
                         stackFactory(Notifications, "Notifications", {
                             title: "Notifications"

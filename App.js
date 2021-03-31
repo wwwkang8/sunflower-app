@@ -27,6 +27,7 @@ export default function App() {
 
 
   const preLoad = async () => {
+    /** 토큰을 없애서 로그아웃하고 싶을때 주석 해제 */
     //await AsyncStorage.clear();
     try{
       
