@@ -56,8 +56,12 @@ export default function App() {
       });
 
       /** Apollo 클라이언트 생성자 호출시에 캐시 객체를 넣어서 생성한다 */
+      const token = await AsyncStorage.getItem("jwt");
       const client = new ApolloClient({
         cache,
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
         ...apolloClientOptions
       });
 
