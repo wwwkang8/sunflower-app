@@ -3,11 +3,13 @@ import { useMutation } from "react-apollo-hooks";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Image } from "react-native";
-import Swiper from 'react-native-swiper'
+import Swiper from 'react-native-swiper';
+import constants from "../constants";
+import { Ionicons } from "@expo/vector-icons";
+import { Icon } from "react-native-vector-icons/Icon";
 
 const Container = styled.View``;
 const Header = styled.View`
-    padding: 15px;
     flex-direction: row;
     align-items: center;
 `;
@@ -17,13 +19,16 @@ const Bold = styled.Text`
 `;
 const HeaderUserContainer = styled.View`
     margin-left: 10px;
-`
+`;
 const Location = styled.Text`
     font-size: 12px;
-`
+`;
+
+const IconsContainer = styled.View`
+`;
 
 
-const Post = ({ user, location }) => {
+const Post = ({ user, location, files = [] }) => {
     return (
         <Container>
             <Header>
@@ -31,12 +36,18 @@ const Post = ({ user, location }) => {
                     <Image 
                         style={{height: 40, width: 40, borderRadius: 20 }} 
                         source={{ uri: user.avatar }}/>
-                </Touchable>
-                <Touchable>
                     <HeaderUserContainer>
                         <Bold>{user.userName}</Bold>
                         <Location>{location}</Location>
                     </HeaderUserContainer>
+                    <Swiper 
+                        showsButtons style={{height: constants.height / 2.5}}
+                        showsPagination={false}>
+                        {files.map(file => <Image 
+                                              style={{width: constants.width, height: constants.height / 2.5}} 
+                                              key={file.id} 
+                                              source={{uri: file.url}} />)}
+                    </Swiper>
                 </Touchable>
             </Header>
         </Container>
