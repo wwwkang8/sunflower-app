@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useMutation } from "react-apollo-hooks";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { Image } from "react-native";
+import { Image, Platform } from "react-native";
 import Swiper from 'react-native-swiper';
 import constants from "../constants";
-import { Ionicons } from "@expo/vector-icons";
-import { Icon } from "react-native-vector-icons/Icon";
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import * as Font from 'expo-font';
 
 const Container = styled.View``;
 const Header = styled.View`
@@ -25,7 +25,18 @@ const Location = styled.Text`
 `;
 
 const IconsContainer = styled.View`
+    padding: 10px;
+    flex-direction: row;
 `;
+
+const IconContainer = styled.View`
+`;
+
+// const ionicons = require('../../assets/fonts/Ionicons.ttf');
+
+// Font.loadAsync({
+//     Ionicons: ionicons
+//   });
 
 
 const Post = ({ user, location, files = [] }) => {
@@ -40,16 +51,29 @@ const Post = ({ user, location, files = [] }) => {
                         <Bold>{user.userName}</Bold>
                         <Location>{location}</Location>
                     </HeaderUserContainer>
-                    <Swiper 
-                        showsButtons style={{height: constants.height / 2.5}}
-                        showsPagination={false}>
-                        {files.map(file => <Image 
-                                              style={{width: constants.width, height: constants.height / 2.5}} 
-                                              key={file.id} 
-                                              source={{uri: file.url}} />)}
-                    </Swiper>
                 </Touchable>
             </Header>
+            <Swiper 
+                showsButtons style={{height: constants.height / 2.5}}
+                showsPagination={false}>
+                {files.map(file => <Image 
+                                    style={{width: constants.width, height: constants.height / 2.5}} 
+                                    key={file.id} 
+                                    source={{uri: file.url}} />)}
+            </Swiper>
+            <IconsContainer>
+                <Touchable>
+                    <IconContainer>
+                        <Ionicons size={28} name="ios-heart-empty" />
+                    </IconContainer>
+                </Touchable>
+                <Touchable>
+                    <IconContainer>
+                        <Ionicons size={28} name="ios-message-empty" />
+                    </IconContainer>
+                </Touchable>
+            </IconsContainer>
+            
         </Container>
     );
 };
