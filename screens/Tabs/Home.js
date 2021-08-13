@@ -61,7 +61,7 @@ export default () => {
       setRefreshing(false);
     }
   }
-  console.log(loading, data);
+
   return <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refresh}/>}>
               {loading ? <Loader /> : data && 
                                       data.seeFeed && 

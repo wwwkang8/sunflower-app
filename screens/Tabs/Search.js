@@ -1,16 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import { TextInput, Text, View } from "react-native";
 
-const View = styled.View`
-  justify-content: center;
-  align-items: center;
-  flex: 1;
-`;
+const Input = styled.TextInput``;
 
-const Text = styled.Text``;
+export default function Search({ navigation }){
+  const SearchBox = () => (
+    <TextInput style={{backgroundColor: "white"}}
+              placeholderTextColor="black"
+              placeholder="Search photos" />
+  );
 
-export default () => (
-  <View>
-    <Text>Search</Text>
-  </View>
-);
+  useEffect(() => {
+    navigation.setOptions({
+      headerTitle: SearchBox,
+    })
+  }, []);
+
+  return(
+    <View 
+      style={{
+        backgroundColor: "white",
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center"
+
+      }}
+      />
+  )
+}
